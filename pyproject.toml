@@ -1,0 +1,22 @@
+[virtualenvs]
+create = true
+in-project = true
+prefer-active-python = true
+
+[tool.poetry]
+name = "indicorp"
+version = "0.1.0"
+description = "An Indico distribution"
+repository = "https://github.com/unconventionaldotdev/indicorp"
+readme = "README.md"
+license = "MIT"
+authors = [
+    "Alejandro Avilés <ome@unconventional.dev>"
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

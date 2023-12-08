@@ -1,0 +1,13 @@
+# dependencies
+.venv/
+node_modules/
+
+# builds
+**/static/dist/
+
+# caches
+__pycache__/
+
+# assets
+url_map.json
+webpack-build-config.json
