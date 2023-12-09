@@ -13,9 +13,15 @@ license = "MIT"
 authors = [
     "Alejandro Avilés <ome@unconventional.dev>"
 ]
+packages = [
+    {include = "indicorp", from = "src"}
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+
+[tool.poetry.plugins."indico.plugins"]
+"indicorp" = "indicorp.plugin:Distro"
 
 [build-system]
 requires = ["poetry-core"]
