@@ -1,0 +1,38 @@
+---
+session_name: indicorp
+start_directory: ./
+windows:
+  - window_name: venv
+    focus: true
+    panes:
+      - shell_command: poetry shell
+
+  - window_name: repos
+    layout: even-horizontal
+    panes:
+      - focus: true
+        shell_command: git status
+      - shell_command: cd indico && git status
+
+  - window_name: local
+    layout: main-horizontal
+    panes:
+      - focus: true
+        shell_command: poetry run -- indico shell
+      - shell_command: make run
+      - shell_command: make assets-core-watch
+      - shell_command: make assets-distro-watch
+
+  - window_name: logs
+    layout: main-vertical
+    panes:
+      - shell_command: maildump
+      - shell_command: make log-db
+      - shell_command: make log-app
+
+  - window_name: remote
+    layout: main-vertical
+    panes:
+      - focus: true
+        shell_command: "# Use this pane to SSH into your machines"
+      - shell_command: "# Use this pane to SSH into your machines"
