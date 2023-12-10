@@ -1,3 +1,6 @@
 [submodule "indico"]
 	path = indico
 	url = https://github.com/indico/indico.git
+[submodule "plugins/indico-plugins"]
+	path = plugins/indico-plugins
+	url = https://github.com/indico/indico-plugins.git
