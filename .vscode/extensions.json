@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    // Python
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    // Jinja
+    "wholroyd.jinja",
+    "samuelcolvin.jinjahtml",
+    "WyattFerguson.jinja2-snippet-kit",
+    // Other languages
+    "redhat.vscode-yaml",
+    "tamasfe.even-better-toml",
+    "trond-snekvik.simple-rst",
+    // Code style
+    "EditorConfig.EditorConfig",
+    "charliermarsh.ruff"
+  ]
+}
