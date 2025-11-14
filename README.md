@@ -16,7 +16,7 @@ Indico can be highly customized to fit the needs of different organizations. Ach
 
 This repository is optimized for the following use cases:
 - Set up and run a local Indico instance.
-- Make code contributions to Indico and plugins repositories.
+- Make code contributions to Indico and plugin repositories.
 - Develop organization-specific customizations as a "distribution plugin".
 
 This repository contains editable code of:
@@ -40,16 +40,15 @@ This section is a step-by-step guide for setting up a development environment fo
 This guide expects the following tools installed and available in your system PATH:
 - [`git`](https://git-scm.com/) (available in most systems)
 - [`make`](https://www.gnu.org/software/make/) (available in most systems)
-- [`poetry`](https://python-poetry.org/) ([installation guide](https://python-poetry.org/docs/#installation))
-- [`pyenv`](https://github.com/pyenv/pyenv) ([installation guide](https://github.com/pyenv/pyenv#installation))
+- [`uv`](https://docs.astral.sh/uv/) ([installation guide](https://docs.astral.sh/uv/getting-started/installation/))
 - [`nvm`](https://github.com/nvm-sh/nvm) ([installation guide](https://github.com/nvm-sh/nvm#installing-and-updating))
 
 Additionally, you will need the following programs installed and running in your system:
 - [PostgreSQL](https://www.postgresql.org/) (>=13) ([installation guide](https://www.postgresql.org/download/))
 - [Redis](https://redis.io/) ([installation guide](https://redis.io/docs/install/install-redis/))
 
-Optionally, for a better development experience, you can install the following tools: <br/>
-- [`direnv`](https://direnv.net/) | [`pipx`](https://pipx.pypa.io/) | [`tmux`](https://github.com/tmux/tmux/wiki) | [`tmuxp`](https://tmuxp.git-pull.com/)
+Optionally, for a better development experience, you can install the following tools:
+- [`direnv`](https://direnv.net/) | [`tmux`](https://github.com/tmux/tmux/wiki) | [`tmuxp`](https://tmuxp.git-pull.com/)
 
 ### Clone the repository
 
@@ -71,19 +70,13 @@ git submodule update --init --progress
 Make sure to have the right versions of `python` and `node` installed:
 
 ```sh
-pyenv install  # reads from .python-version
-nvm install    # reads from .nvmrc
+uv python install  # reads from .python-version
+nvm install        # reads from .nvmrc
 ```
 
 ### Install Python and JavaScript dependencies
 
-First create and activate a [`virtualenv`](https://docs.python.org/3/tutorial/venv.html) for the Indico distribution with:
-
-```shell
-poetry shell
-```
-
-From this new shell, install Indico, the distribution plugin and all Python and JavaScript dependencies with:
+Install Indico, the distribution plugin and all Python and JavaScript dependencies with:
 
 ```shell
 make deps
@@ -219,7 +212,7 @@ Indico expects to have access to a SMTP server for sending emails. One convenien
 You can install the program system-wide but in an isolated environment with:
 
 ```shell
-pipx install maildump
+uvx maildump
 ```
 
 Keep it running in the background with:
@@ -243,7 +236,7 @@ git submodule update
 
 ### Install new dependencies
 
-Install all missing Python and Javascript dependencies introduced in the distribution itself or any of the submodules with:
+Install all missing Python and Javascript dependencies introduced.
 
 ```shell
 make deps

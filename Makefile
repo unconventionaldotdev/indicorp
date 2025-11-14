@@ -18,7 +18,7 @@ deps-distro: deps-distro-py deps-distro-js
 
 .PHONY: deps-distro-py
 deps-distro-py:
-	poetry install
+	uv sync
 
 .PHONY: deps-distro-js
 deps-distro-js:
@@ -31,9 +31,9 @@ deps-core: deps-core-py deps-core-js
 
 .PHONY: deps-core-py
 deps-core-py:
-	poetry run -- pip install --requirement indico/requirements.txt
-	poetry run -- pip install --requirement indico/requirements.dev.txt
-	poetry run -- pip install --editable indico
+	uv pip install --requirement indico/requirements.txt
+	uv pip install --requirement indico/requirements.dev.txt
+	uv pip install --editable indico
 
 .PHONY: deps-core-js
 deps-core-js:
@@ -49,7 +49,7 @@ deps-plugin: _check_plugin deps-plugin-py deps-plugin-js
 
 .PHONY: deps-plugin-py
 deps-plugin-py: _check_plugin
-	poetry run -- pip install --editable plugins/$(plugin)
+	uv pip install --editable plugins/$(plugin)
 
 .PHONY: deps-plugin-js
 deps-plugin-js: _check_plugin
@@ -62,29 +62,29 @@ assets: assets-core assets-distro
 
 .PHONY: assets-core
 assets-core:
-	poetry run -- indico/bin/maintenance/build-assets.py indico --dev
+	uv run indico/bin/maintenance/build-assets.py indico --dev
 
 .PHONY: assets-distro
 assets-distro:
-	poetry run -- indico/bin/maintenance/build-assets.py plugin --dev ../src
+	uv run indico/bin/maintenance/build-assets.py plugin --dev ../src
 
 .PHONY: assets-plugin
 assets-plugin: _check_plugin
-	poetry run -- indico/bin/maintenance/build-assets.py plugin --dev ../plugins/$(plugin)
+	uv run indico/bin/maintenance/build-assets.py plugin --dev ../plugins/$(plugin)
 
 # Assets in watch mode for development
 
 .PHONY: assets-core-watch
 assets-core-watch:
-	poetry run -- indico/bin/maintenance/build-assets.py indico --dev --watch
+	uv run indico/bin/maintenance/build-assets.py indico --dev --watch
 
 .PHONY: assets-distro-watch
 assets-distro-watch:
-	poetry run -- indico/bin/maintenance/build-assets.py plugin --dev --watch ../src
+	uv run indico/bin/maintenance/build-assets.py plugin --dev --watch ../src
 
 .PHONY: assets-plugin-watch
 assets-plugin-watch:
-	poetry run -- indico/bin/maintenance/build-assets.py plugin --dev --watch ../plugins/$(plugin)
+	uv run indico/bin/maintenance/build-assets.py plugin --dev --watch ../plugins/$(plugin)
 
 # -- cleaning ------------------------------------------------------------------
 
@@ -118,13 +118,13 @@ log-app: _check_indicoapp
 
 .PHONY: log-db
 log-db:
-	poetry run -- python indico/bin/utils/db_log.py -S
+	uv run python indico/bin/utils/db_log.py -S
 
 ## -- misc ---------------------------------------------------------------------
 
 .PHONY: run
 run:
-	poetry run -- indico run --quiet --enable-evalex
+	uv run indico run --quiet --enable-evalex
 
 .PHONY: config
 config:

@@ -1,31 +1,33 @@
-[tool.poetry]
+[project]
 name = "indicorp"
 version = "0.1.0"
 description = "An Indico distribution"
-repository = "https://github.com/unconventionaldotdev/indicorp"
 readme = "README.md"
 license = "MIT"
-authors = [
-    "Alejandro Avilés <ome@unconventional.dev>"
+authors = [{ name = "Alejandro Avilés", email = "ome@unconventional.dev" }]
+requires-python = '>=3.12.2'
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/unconventionaldotdev/indicorp"
+
+[project.entry-points."indico.plugins"]
+indicorp = "indicorp.plugin:Distro"
+
+[tool.hatch]
+version = { path = 'src/indicorp/__init__.py' }
+
+[tool.hatch.build]
+packages = ["src/indicorp"]
+
+[tool.uv.sources]
+indico = { path = "indico", editable = true }
+
+[dependency-groups]
+dev = [
+  "indico[dev]"
 ]
-packages = [
-    {include = "indicorp", from = "src"}
-]
-
-[tool.poetry.dependencies]
-python = "<3.13,>=3.12.2"
-
-[tool.poetry.group.dev.dependencies]
-indico = { path = "indico", develop = true, extras = ["dev"] }
-
-[tool.poetry.plugins."indico.plugins"]
-"indicorp" = "indicorp.plugin:Distro"
-
-[tool.virtualenvs]
-create = true
-in-project = true
-prefer-active-python = true
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ['hatchling==1.27.0']
+build-backend = 'hatchling.build'
