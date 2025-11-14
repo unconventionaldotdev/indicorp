@@ -5,7 +5,7 @@ windows:
   - window_name: venv
     focus: true
     panes:
-      - shell_command: poetry shell
+      - shell_command: source .venv/bin/activate
 
   - window_name: repos
     layout: even-horizontal
@@ -18,7 +18,7 @@ windows:
     layout: main-horizontal
     panes:
       - focus: true
-        shell_command: poetry run -- indico shell
+        shell_command: uv run indico shell
       - shell_command: make run
       - shell_command: make assets-core-watch
       - shell_command: make assets-distro-watch
