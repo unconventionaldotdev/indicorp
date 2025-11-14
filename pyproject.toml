@@ -13,12 +13,10 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "<3.13,>=3.12.2"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.1.8"
-pytest = "^7.4.3"
-unbeheader = "^1.3.0"
+indico = { path = "indico", develop = true, extras = ["dev"] }
 
 [tool.poetry.plugins."indico.plugins"]
 "indicorp" = "indicorp.plugin:Distro"
