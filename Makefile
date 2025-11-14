@@ -1,5 +1,34 @@
 # -- environment ---------------------------------------------------------------
 
+#  Full setup of development environment
+
+.PHONY: deps
+deps: deps-py deps-js
+
+.PHONY: deps-py
+deps-py: deps-distro-py
+
+.PHONY: deps-js
+deps-js: deps-core-js deps-distro-js
+
+# Setup of distribution-only environment
+
+.PHONY: deps-distro
+deps-distro: deps-distro-py deps-distro-js
+
+.PHONY: deps-distro-py
+deps-distro-py:
+	poetry install
+
+.PHONY: deps-distro-js
+deps-distro-js:
+	npm ci
+
+# Setup of core-only environment
+
+.PHONY: deps-core
+deps-core: deps-core-py deps-core-js
+
 .PHONY: deps-core-py
 deps-core-py:
 	poetry run -- pip install --requirement indico/requirements.txt
@@ -10,13 +39,13 @@ deps-core-py:
 deps-core-js:
 	cd indico && npm ci
 
-.PHONY: deps-distro-py
-deps-distro-py:
-	poetry install
+# Setup of plugin-specific environment
 
-.PHONY: deps-distro-js
-deps-distro-js:
-	npm ci
+# These targets require the 'plugin' variable to be set, e.g.:
+#    make deps-plugin plugin=indico-plugins/prometheus
+
+.PHONY: deps-plugin
+deps-plugin: _check_plugin deps-plugin-py deps-plugin-js
 
 .PHONY: deps-plugin-py
 deps-plugin-py: _check_plugin
@@ -26,25 +55,10 @@ deps-plugin-py: _check_plugin
 deps-plugin-js: _check_plugin
 	cd plugins/$(plugin) && npm ci
 
-.PHONY: deps-py
-deps-py: deps-core-py deps-distro-py
-
-.PHONY: deps-js
-deps-js: deps-core-js deps-distro-js
-
-.PHONY: deps-core
-deps-core: deps-core-py deps-core-js
-
-.PHONY: deps-distro
-deps-distro: deps-distro-py deps-distro-js
-
-.PHONY: deps-plugin
-deps-plugin: _check_plugin deps-plugin-py deps-plugin-js
-
-.PHONY: deps
-deps: deps-py deps-js
-
 # -- assets --------------------------------------------------------------------
+
+.PHONY: assets
+assets: assets-core assets-distro
 
 .PHONY: assets-core
 assets-core:
@@ -58,6 +72,8 @@ assets-distro:
 assets-plugin: _check_plugin
 	poetry run -- indico/bin/maintenance/build-assets.py plugin --dev ../plugins/$(plugin)
 
+# Assets in watch mode for development
+
 .PHONY: assets-core-watch
 assets-core-watch:
 	poetry run -- indico/bin/maintenance/build-assets.py indico --dev --watch
@@ -69,9 +85,6 @@ assets-distro-watch:
 .PHONY: assets-plugin-watch
 assets-plugin-watch:
 	poetry run -- indico/bin/maintenance/build-assets.py plugin --dev --watch ../plugins/$(plugin)
-
-.PHONY: assets
-assets: assets-core assets-distro
 
 # -- cleaning ------------------------------------------------------------------
 
