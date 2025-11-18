@@ -130,6 +130,10 @@ run:
 config:
 	$${EDITOR:-vi} indico/indico/indico.conf
 
+.PHONY: build
+build:
+	bin/build.sh
+
 ## -- util ---------------------------------------------------------------------
 
 .PHONY: _check_indicoapp

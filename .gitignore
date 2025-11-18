@@ -4,6 +4,7 @@ node_modules/
 
 # builds
 **/static/dist/
+dist/
 
 # caches
 __pycache__/

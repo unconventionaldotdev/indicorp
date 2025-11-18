@@ -9,6 +9,7 @@ Read this README.md file to know more about:
 - [Setting the environment](#setting-the-environment)
 - [Running an Indico instance](#running-an-indico-instance)
 - [Updating the environment](#updating-the-environment)
+- [Building the distribution](#building-the-distribution)
 
 ## Features
 
@@ -252,4 +253,12 @@ Run all the Alembic migration scripts for database schema migrations introduced 
 ```shell
 indico db upgrade
 indico db --all-plugins upgrade
+```
+
+## Building the distribution
+
+The main output of this repository is a Docker image. This image will contain not only the distribution plugin code but also Indico and all plugins code from the submodules, built as wheels and installed in the image. Additionally, configuration files are copied to the image to make it ready to run. Build the Docker image with:
+
+```shell
+make build
 ```
