@@ -17,7 +17,7 @@ indicorp = "indicorp.plugin:Distro"
 [tool.hatch]
 version = { path = 'src/indicorp/__init__.py' }
 
-[tool.hatch.build]
+[tool.hatch.build.targets.wheel]
 packages = ["src/indicorp"]
 
 [tool.uv.sources]
