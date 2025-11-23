@@ -8,4 +8,7 @@ COPY --chown=indico:indico dist/. /opt/indico/dist/
 COPY --chown=indico:indico etc/. /opt/indico/etc/
 
 # Install wheels
-RUN /opt/indico/.venv/bin/pip install /opt/indico/dist/*.whl
+RUN <<EOF
+/opt/indico/.venv/bin/pip install /opt/indico/dist/*.whl
+/opt/indico/.venv/bin/pip cache purge
+EOF
