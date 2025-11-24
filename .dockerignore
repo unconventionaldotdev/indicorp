@@ -1,0 +1,13 @@
+
+.venv
+
+**/.git*
+**/.idea
+**/.vscode
+**/node_modules
+
+# builds
+**/dist
+
+# caches
+**/__pycache__
