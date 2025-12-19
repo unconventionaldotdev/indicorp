@@ -1517,6 +1517,17 @@ wheels = [
 ]
 
 [[package]]
+name = "indico-plugin-vc-zoom"
+version = "3.3.4"
+source = { editable = "plugins/indico-plugins/vc_zoom" }
+dependencies = [
+    { name = "indico" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "indico", specifier = ">=3.3.7.dev0" }]
+
+[[package]]
 name = "indicorp"
 version = "0.1.0"
 source = { editable = "." }
@@ -1524,12 +1535,16 @@ source = { editable = "." }
 [package.dev-dependencies]
 dev = [
     { name = "indico", extra = ["dev"] },
+    { name = "indico-plugin-vc-zoom" },
 ]
 
 [package.metadata]
 
 [package.metadata.requires-dev]
-dev = [{ name = "indico", extras = ["dev"], editable = "indico" }]
+dev = [
+    { name = "indico", extras = ["dev"], editable = "indico" },
+    { name = "indico-plugin-vc-zoom", editable = "plugins/indico-plugins/vc_zoom" },
+]
 
 [[package]]
 name = "iniconfig"

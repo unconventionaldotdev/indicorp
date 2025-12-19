@@ -22,10 +22,12 @@ packages = ["src/indicorp"]
 
 [tool.uv.sources]
 indico = { path = "indico", editable = true }
+indico-plugin-vc-zoom = { path = "plugins/indico-plugins/vc_zoom", editable = true }
 
 [dependency-groups]
 dev = [
-  "indico[dev]"
+  "indico[dev]",
+  "indico-plugin-vc-zoom"
 ]
 
 [build-system]
