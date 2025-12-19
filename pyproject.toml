@@ -20,6 +20,14 @@ version = { path = 'src/indicorp/__init__.py' }
 [tool.hatch.build.targets.wheel]
 packages = ["src/indicorp"]
 
+[tool.uv]
+# XXX: Make uv refresh metadata of editable packages
+reinstall-package = [
+    "indicorp",
+    "indico",
+    "indico-plugin-vc-zoom"
+]
+
 [tool.uv.sources]
 indico = { path = "indico", editable = true }
 indico-plugin-vc-zoom = { path = "plugins/indico-plugins/vc_zoom", editable = true }
