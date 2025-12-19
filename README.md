@@ -94,8 +94,8 @@ make deps-plugin plugin=<plugin-path>
 First, create the directory that Indico will use as its root path with:
 
 ```shell
-export INDICOAPP=/usr/local/opt/indicorp  # Use this in the setup wizard
-mkdir -p "${INDICOAPP}"
+export INDICO_APP_PATH=/usr/local/opt/indicorp  # Use this in the setup wizard
+mkdir -p "${INDICO_APP_PATH}"
 ```
 
 Launch the setup wizard to configure the Indico instance:
@@ -114,7 +114,7 @@ PLUGINS = {'indicorp', ...}
 > You can quickly edit the `indico.conf` file with `make config`.
 
 > [!IMPORTANT]
-> You can configure your `INDICOAPP` variable in the [`.envrc`](.envrc) file to avoid having to set it every time you open a new terminal. For this to work you will need to install [`direnv`](https://direnv.net/) and allow it to load the `.envrc` file.
+> You can configure your `INDICO_APP_PATH` variable in the [`.envrc`](.envrc) file to avoid having to set it every time you open a new terminal. For this to work you will need to install [`direnv`](https://direnv.net/) and allow it to load the `.envrc` file.
 
 ### Compile translation catalogs
 
@@ -193,10 +193,10 @@ make assets-distro-watch
 
 ### Monitor the logs
 
-Indico prints the application logs to an `indico.log` file within the `INDICOAPP` directory. These logs are useful to gain context about application errors or behavior while debugging. Keep a terminal open to monitor the logs with:
+Indico prints the application logs to an `indico.log` file within the `INDICO_APP_PATH` directory. These logs are useful to gain context about application errors or behavior while debugging. Keep a terminal open to monitor the logs with:
 
 ```shell
-export INDICOAPP=/usr/local/opt/indicorp  # As set in the setup wizard
+export INDICO_APP_PATH=/usr/local/opt/indicorp  # As set in the setup wizard
 make log-app
 ```
 

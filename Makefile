@@ -113,8 +113,8 @@ clean-all: clean-env clean-assets
 ## -- monitoring ---------------------------------------------------------------
 
 .PHONY: log-app
-log-app: _check_indicoapp
-	tail -f "$${INDICOAPP}/data/log/indico.log"
+log-app: _check_app_path
+	tail -f "$${INDICO_APP_PATH}/data/log/indico.log"
 
 .PHONY: log-db
 log-db:
@@ -136,10 +136,10 @@ build:
 
 ## -- util ---------------------------------------------------------------------
 
-.PHONY: _check_indicoapp
-_check_indicoapp:
-ifndef INDICOAPP
-	$(error INDICOAPP envvar is not set)
+.PHONY: _check_app_path
+_check_app_path:
+ifndef INDICO_APP_PATH
+	$(error INDICO_APP_PATH envvar is not set)
 endif
 
 .PHONY: _check_plugin
