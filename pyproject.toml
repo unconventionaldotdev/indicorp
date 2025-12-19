@@ -1,6 +1,6 @@
 [project]
 name = "indicorp"
-version = "0.1.0"
+dynamic = ["version"]
 description = "An Indico distribution"
 readme = "README.md"
 license = "MIT"

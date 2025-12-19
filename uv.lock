@@ -1529,7 +1529,6 @@ requires-dist = [{ name = "indico", specifier = ">=3.3.7.dev0" }]
 
 [[package]]
 name = "indicorp"
-version = "0.1.0"
 source = { editable = "." }
 
 [package.dev-dependencies]
