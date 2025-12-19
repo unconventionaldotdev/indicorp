@@ -18,7 +18,7 @@ deps-distro: deps-distro-py deps-distro-js
 
 .PHONY: deps-distro-py
 deps-distro-py:
-	uv sync
+	uv sync --locked
 
 .PHONY: deps-distro-js
 deps-distro-js:
