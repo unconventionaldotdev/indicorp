@@ -5,7 +5,7 @@ from indico.core.plugins import IndicoPlugin
 
 
 class Distro(IndicoPlugin):
-    """Indicorp.
+    """Indicorp
 
     An Indico distribution plugin exploring the limits of the plugin system.
     """
