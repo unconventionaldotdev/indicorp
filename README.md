@@ -135,13 +135,13 @@ createdb indico_template
 psql indico_template -c "CREATE EXTENSION unaccent; CREATE EXTENSION pg_trgm;"
 ```
 
-Create the `indico` database by copying the `indico_template` database:
+Create the `indicorp` database by copying the `indico_template` database:
 
 ```shell
-createdb indico -T indico_template
+createdb indicorp -T indico_template
 ```
 
-Once the `indico` database exists, prepare the database schemas required by Indico and all enabled plugins with:
+Once the `indicorp` database exists, prepare the database schemas required by Indico and all enabled plugins with:
 
 ```shell
 indico db prepare
