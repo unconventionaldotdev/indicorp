@@ -26,7 +26,9 @@ windows:
   - window_name: logs
     layout: main-vertical
     panes:
-      - shell_command: maildump
+      # XXX: Run --with=setuptools due to maildump issue:
+      #      https://github.com/ThiefMaster/maildump/issues/63
+      - shell_command: uvx --with=setuptools maildump
       - shell_command: make log-db
       - shell_command: make log-app
 

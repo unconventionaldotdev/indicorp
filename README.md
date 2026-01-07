@@ -211,16 +211,10 @@ make log-db
 
 Indico expects to have access to a SMTP server for sending emails. One convenient option is installing and running a fake server such as [Maildump](https://pypi.org/project/maildump/). This will allow you to intercept and read all outgoing emails while also preventing them from being sent to real users accidentally.
 
-You can install the program system-wide but in an isolated environment with:
+You can install and run the program with:
 
 ```shell
 uvx maildump
-```
-
-Keep it running in the background with:
-
-```shell
-maildump
 ```
 
 ## Updating the environment
