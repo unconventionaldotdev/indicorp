@@ -10,6 +10,7 @@ Read this README.md file to know more about:
 - [Running an Indico instance](#running-an-indico-instance)
 - [Updating the environment](#updating-the-environment)
 - [Building the distribution](#building-the-distribution)
+- [Troubleshooting](#troubleshooting)
 
 ## Features
 
@@ -262,3 +263,25 @@ The main output of this repository is a Docker image. This image will contain no
 ```shell
 make build
 ```
+
+## Troubleshooting
+
+Things don't always go the expected way. This section contains solutions to some common issues that may arise while setting up the development environment.
+
+### WeasyPrint installation issues on Apple Silicon Macs
+
+The Python interpreters installed via `uv` on Apple Silicon Macs does not find libraries installed via Homebrew in `/opt/homebrew/lib` by default. This causes WeasyPrint to fail at import time. To fix this, create symbolic links to the required libraries in `/usr/local/lib` with the following commands:
+
+```sh
+sudo ln -s /opt/homebrew/opt/glib/lib/libgobject-2.0.0.dylib /usr/local/lib/gobject-2.0
+sudo ln -s /opt/homebrew/opt/pango/lib/libpango-1.0.dylib /usr/local/lib/pango-1.0
+sudo ln -s /opt/homebrew/opt/harfbuzz/lib/libharfbuzz.dylib /usr/local/lib/harfbuzz
+sudo ln -s /opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib /usr/local/lib/fontconfig-1
+sudo ln -s /opt/homebrew/opt/pango/lib/libpangoft2-1.0.dylib /usr/local/lib/pangoft2-1.0
+```
+
+References:
+- https://github.com/astral-sh/uv/issues/7870
+- https://github.com/astral-sh/uv/issues/7764
+- https://github.com/astral-sh/uv/issues/6971
+- https://github.com/Kozea/WeasyPrint/issues/1448#issuecomment-925549118
