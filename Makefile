@@ -66,7 +66,7 @@ assets-core:
 
 .PHONY: assets-distro
 assets-distro:
-	uv run indico/bin/maintenance/build-assets.py plugin --dev ../src
+	uv run indico/bin/maintenance/build-assets.py plugin --dev ..
 
 .PHONY: assets-plugin
 assets-plugin: _check_plugin
@@ -80,7 +80,7 @@ assets-core-watch:
 
 .PHONY: assets-distro-watch
 assets-distro-watch:
-	uv run indico/bin/maintenance/build-assets.py plugin --dev --watch ../src
+	uv run indico/bin/maintenance/build-assets.py plugin --dev --watch ..
 
 .PHONY: assets-plugin-watch
 assets-plugin-watch:
@@ -99,9 +99,9 @@ clean-js:
 
 .PHONY: clean-assets
 clean-assets:
-	rm -rf src/indicorp/static/dist
+	rm -rf indicorp/static/dist
 	rm -rf indico/indico/web/static/dist
-	rm src/url_map.json
+	rm url_map.json
 	rm indico/url_map.json
 
 .PHONY: clean-env

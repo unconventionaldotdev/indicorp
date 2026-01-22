@@ -15,10 +15,10 @@ Repository = "https://github.com/unconventionaldotdev/indicorp"
 indicorp = "indicorp.plugin:Distro"
 
 [tool.hatch]
-version = { path = 'src/indicorp/__init__.py' }
+version = { path = 'indicorp/__init__.py' }
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/indicorp"]
+packages = ["indicorp"]
 
 [tool.uv]
 # XXX: Make uv refresh metadata of editable packages
