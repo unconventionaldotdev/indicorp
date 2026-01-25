@@ -134,6 +134,10 @@ config:
 build:
 	bin/build.sh
 
+.PHONY: tmux
+tmux:
+	tmuxp load -d "./tmuxp.yaml" && tmux -CC attach -t "indicorp"
+
 ## -- util ---------------------------------------------------------------------
 
 .PHONY: _check_app_path
