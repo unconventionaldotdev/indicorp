@@ -170,7 +170,11 @@ make assets-plugin plugin=<plugin-path>
 Now that you have a development environment set up, you can launch an instance of Indico. In this section, you will find instructions for launching the web server, rebuilding the static assets on changes and monitoring the logs.
 
 > [!NOTE]
-> You can run all the commands in this section at the same time in different terminals with [`tmux`](https://github.com/tmux/tmux/wiki), [`tmuxp`](https://tmuxp.git-pull.com/) and the [`tmuxp.yaml`](./tmuxp.yaml) file included in this repository.
+> You can run all the commands in this section at the same time in different terminals with [`tmux`](https://github.com/tmux/tmux/wiki), [`tmuxp`](https://tmuxp.git-pull.com/) and the [`tmuxp.yaml`](./tmuxp.yaml) file included in this repository. There is a convenient `make` target to launch the `tmux` session with:
+>
+> ```shell
+> make tmux
+> ```
 
 ### Launch Indico
 
