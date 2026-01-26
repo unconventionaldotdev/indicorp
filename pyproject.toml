@@ -17,8 +17,20 @@ indicorp = "indicorp.plugin:Distro"
 [tool.hatch]
 version = { path = 'indicorp/__init__.py' }
 
-[tool.hatch.build.targets.wheel]
+[tool.hatch.build]
 packages = ["indicorp"]
+exclude = [
+    # exclude original client sources (they are all included in source maps anyway)
+    'indicorp/client/',
+    # no need for tests outside development
+    'tests/',
+    '*_test.py',
+]
+artifacts = [
+    'indicorp/translations/**/messages-react.json',
+    'indicorp/translations/**/*.mo',
+    'indicorp/static/dist/',
+]
 
 [tool.uv]
 # XXX: Make uv refresh metadata of editable packages
