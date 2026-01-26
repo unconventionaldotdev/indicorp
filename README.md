@@ -115,7 +115,7 @@ PLUGINS = {'indicorp', ...}
 > You can quickly edit the `indico.conf` file with `make config`.
 
 > [!IMPORTANT]
-> You can configure your `INDICO_APP_PATH` variable in the [`.envrc`](.envrc) file to avoid having to set it every time you open a new terminal. For this to work you will need to install [`direnv`](https://direnv.net/) and allow it to load the `.envrc` file.
+> You can configure your `INDICO_APP_PATH` variable in a [`.envrc.local`](.envrc.local) file to avoid having to set it every time you open a new terminal. For this to work you will need to install [`direnv`](https://direnv.net/) and run `direnv allow`.
 
 ### Compile translation catalogs
 

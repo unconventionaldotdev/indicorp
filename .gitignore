@@ -12,3 +12,6 @@ __pycache__/
 # assets
 url_map.json
 webpack-build-config.json
+
+# local settings
+.envrc.local
