@@ -120,6 +120,12 @@ log-app: _check_app_path
 log-db:
 	uv run python indico/bin/utils/db_log.py -S
 
+## -- checks -------------------------------------------------------------------
+
+.PHONY: lint
+lint:
+	uv run ruff check --output-format=concise .
+
 ## -- misc ---------------------------------------------------------------------
 
 .PHONY: run

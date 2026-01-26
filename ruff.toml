@@ -1,0 +1,8 @@
+# Reuse Indico core's ruff configuration
+extend = 'indico/ruff.toml'
+
+# Exclude Git submodules
+extend-exclude = [
+    'indico',
+    'plugins'
+]
