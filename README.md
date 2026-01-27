@@ -259,7 +259,7 @@ indico db --all-plugins upgrade
 The main output of this repository is a Docker image. This image will contain not only the distribution plugin code but also Indico and all plugins code from the submodules, built as wheels and installed in the image. Additionally, configuration files are copied to the image to make it ready to run. Build the Docker image with:
 
 ```shell
-make build
+make docker
 ```
 
 ## Troubleshooting

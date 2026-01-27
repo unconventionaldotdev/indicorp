@@ -126,6 +126,16 @@ log-db:
 lint:
 	uv run ruff check --output-format=concise .
 
+# -- builds --------------------------------------------------------------------
+
+.PHONY: docker
+docker:
+	bin/build.sh
+
+.PHONY: wheel
+wheel:
+	uv run indico/bin/maintenance/build-wheel.py plugin --no-git ..
+
 ## -- misc ---------------------------------------------------------------------
 
 .PHONY: run
@@ -136,15 +146,12 @@ run:
 config:
 	$${EDITOR:-vi} indico/indico/indico.conf
 
-.PHONY: build
-build:
-	bin/build.sh
 
 .PHONY: tmux
 tmux:
 	tmuxp load -d "./tmuxp.yaml" && tmux -CC attach -t "indicorp"
 
-## -- util ---------------------------------------------------------------------
+## -- utils --------------------------------------------------------------------
 
 .PHONY: _check_app_path
 _check_app_path:
