@@ -1,5 +1,5 @@
 # This file is part of Indicorp.
-# Copyright (C) 2023 UNCONVENTIONAL
+# Copyright (C) 2026 UNCONVENTIONAL
 
 import pkgutil
 from importlib import import_module

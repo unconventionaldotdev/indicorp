@@ -123,8 +123,41 @@ log-db:
 ## -- checks -------------------------------------------------------------------
 
 .PHONY: lint
-lint:
-	uv run ruff check --output-format=concise .
+lint: lint-py lint-js
+
+.PHONY: lint-py
+lint-py:
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.py$$' | xargs -r uv run isort --check-only
+	@cd indico && uv run python bin/maintenance/update_backrefs.py --ci
+	@cd indico && uv run python bin/maintenance/generate_icons.py --ci
+	@cd indico && uv run python bin/maintenance/update_moment_locales.py --ci
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | xargs -r uv run unbehead --check
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.py$$' | xargs -r uv run ruff check --output-format=concise
+
+.PHONY: lint-js
+lint-js:
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.\(js\|jsx\|ts\|tsx\)$$' | xargs -r npx @biomejs/biome ci --files-ignore-unknown=true
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.\(js\|jsx\|ts\|tsx\)$$' | xargs -r npx eslint
+	@cd indico && npx tsc --noEmit
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.\(scss\|css\)$$' | xargs -r npx stylelint --formatter unix
+
+.PHONY: fix
+fix: fix-py fix-js
+
+.PHONY: fix-py
+fix-py:
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.py$$' | xargs -r uv run isort
+	@cd indico && uv run python bin/maintenance/update_backrefs.py
+	@cd indico && uv run python bin/maintenance/generate_icons.py
+	@cd indico && uv run python bin/maintenance/update_moment_locales.py
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | xargs -r uv run unbehead
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.py$$' | xargs -r uv run ruff check --fix
+
+.PHONY: fix-js
+fix-js:
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.\(js\|jsx\|ts\|tsx\)$$' | xargs -r npx @biomejs/biome check --write --files-ignore-unknown=true
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.\(js\|jsx\|ts\|tsx\)$$' | xargs -r npx eslint --fix
+	@git -C indico diff --name-only --diff-filter=ACM HEAD | grep '\.\(scss\|css\)$$' | xargs -r npx stylelint --fix
 
 # -- builds --------------------------------------------------------------------
 
