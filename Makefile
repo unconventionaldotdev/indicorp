@@ -126,6 +126,19 @@ log-db:
 lint:
 	uv run ruff check --output-format=concise .
 
+## -- tests --------------------------------------------------------------------
+
+.PHONY: test
+test: test-py test-js
+
+.PHONY: test-py
+test-py:
+	uv run pytest
+
+.PHONY: test-js
+test-js:
+	@echo "No JS tests defined yet"
+
 # -- builds --------------------------------------------------------------------
 
 .PHONY: docker
