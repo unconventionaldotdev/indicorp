@@ -12,6 +12,8 @@ Read this README.md file to know more about:
 - [Building the distribution](#building-the-distribution)
 - [Troubleshooting](#troubleshooting)
 
+For information on contributing to this repository, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Features
 
 Indico can be highly customized to fit the needs of different organizations. Achieving this often involves making contributions to the [Indico](https://github.com/indico/indico) open source project, enabling [Indico plugins](https://github.com/indico/indico-plugins) and even [patching Indico](https://github.com/unconventionaldotdev/indico-patcher) code at runtime. Launching and contributing to different open source projects requires a complex development environment that may not be trivial to setup. This template aims to standardize the setup of such environments and provides a number of utilities to make development easier.
