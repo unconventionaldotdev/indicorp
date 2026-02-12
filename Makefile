@@ -123,8 +123,19 @@ log-db:
 ## -- checks -------------------------------------------------------------------
 
 .PHONY: lint
-lint:
+lint: lint-py lint-js lint-headers
+
+.PHONY: lint-py
+lint-py:
 	uv run ruff check --output-format=concise .
+
+.PHONY: lint-js
+lint-js:
+	@echo "No JS linter defined yet"
+
+.PHONY: lint-headers
+lint-headers:
+	uv run unbehead --check
 
 ## -- tests --------------------------------------------------------------------
 

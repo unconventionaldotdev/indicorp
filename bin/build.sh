@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# This file is part of Indicorp.
+# Copyright (C) 2026 UNCONVENTIONAL
+
 set -euo pipefail
 
 # Image tag (override: IMAGE_TAG=mytag ./bin/build.sh)

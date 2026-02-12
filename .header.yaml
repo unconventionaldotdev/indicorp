@@ -1,0 +1,7 @@
+root: true
+owner: UNCONVENTIONAL
+start_year: 2026
+template: |-
+  {comment_start} This file is part of Indicorp.
+  {comment_middle} Copyright (C) {dates} {owner}
+  {comment_end}
