@@ -26,9 +26,10 @@ windows:
   - window_name: logs
     layout: main-vertical
     panes:
-      # XXX: Run --with=setuptools due to maildump issue:
+      # XXX: Run --with='setuptools<81' due to maildump needing pkg_resources,
+      #      which was removed in setuptools 81+.
       #      https://github.com/ThiefMaster/maildump/issues/63
-      - shell_command: uvx --with=setuptools maildump
+      - shell_command: uvx --with='setuptools<81' maildump
       - shell_command: make log-db
       - shell_command: make log-app
 
