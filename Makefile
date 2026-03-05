@@ -1,3 +1,72 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "                           ⛧ INDICO DISTRO SPELLS ⛧"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo ""
+	@echo "⟐ Runtime:"
+	@echo "  make run                 - Start Indico in dev mode"
+	@echo "  make tmux                - Launch the tmux session"
+	@echo "  make config              - Edit indico.conf"
+	@echo ""
+	@echo "⟐ Environment:"
+	@echo "  make deps                - Install all dependencies (Python + JS)"
+	@echo "  make deps-core           - Install core-only dependencies"
+	@echo "  make deps-distro         - Install distribution-only dependencies"
+	@echo "  make deps-plugin         - Install plugin dependencies (plugin=<path>)"
+	@echo ""
+	@echo "⟐ Assets:"
+	@echo "  make assets              - Build all assets"
+	@echo "  make assets-core         - Build core assets"
+	@echo "  make assets-distro       - Build distro assets"
+	@echo "  make assets-plugin       - Build plugin assets (plugin=<path>)"
+	@echo "  make assets-core-watch   - Watch core assets in dev mode"
+	@echo "  make assets-distro-watch - Watch distro assets in dev mode"
+	@echo "  make assets-plugin-watch - Watch plugin assets in dev mode"
+	@echo ""
+	@echo "⟐ Cleaning:"
+	@echo "  make clean               - Remove envs and built assets"
+	@echo "  make clean-env           - Remove virtualenv and node_modules"
+	@echo "  make clean-assets        - Remove built assets"
+	@echo ""
+	@echo "⟐ Checks:"
+	@echo "  make lint                - Run all linters"
+	@echo "  make lint-py             - Lint Python code"
+	@echo "  make lint-js             - Lint JavaScript/TypeScript"
+	@echo "  make lint-headers        - Check file headers"
+	@echo ""
+	@echo "⟐ Tests:"
+	@echo "  make test                - Run all tests"
+	@echo "  make test-py             - Run Python tests"
+	@echo "  make test-js             - Run JavaScript tests"
+	@echo ""
+	@echo "⟐ Builds:"
+	@echo "  make docker              - Build Docker image"
+	@echo "  make wheels              - Build all wheels"
+	@echo "  make wheel-plugin        - Build plugin wheel (plugin=<path>)"
+	@echo ""
+	@echo "⟐ Debugging:"
+	@echo "  make log-app             - Tail application log (INDICO_APP_PATH required)"
+	@echo "  make log-db              - Tail DB log"
+	@echo ""
+	@echo "Note: set plugin=<path> for plugin targets (e.g., plugin=indico-plugins/prometheus)."
+
+## -- runtime ------------------------------------------------------------------
+
+.PHONY: run
+run:
+	uv run indico run --quiet --enable-evalex
+
+.PHONY: tmux
+tmux:
+	tmuxp load -d "./tmuxp.yaml" && tmux -CC attach -t "indicorp"
+
+.PHONY: config
+config:
+	$${EDITOR:-vi} indico/indico/indico.conf
+
 # -- environment ---------------------------------------------------------------
 
 #  Full setup of development environment
@@ -88,6 +157,12 @@ assets-plugin-watch:
 
 # -- cleaning ------------------------------------------------------------------
 
+.PHONY: clean
+clean: clean-env clean-assets
+
+.PHONY: clean-env
+clean-env: clean-py clean-js
+
 .PHONY: clean-py
 clean-py:
 	rm -rf .venv
@@ -103,22 +178,6 @@ clean-assets:
 	rm -rf indico/indico/web/static/dist
 	rm url_map.json
 	rm indico/url_map.json
-
-.PHONY: clean-env
-clean-env: clean-py clean-js
-
-.PHONY: clean-all
-clean-all: clean-env clean-assets
-
-## -- monitoring ---------------------------------------------------------------
-
-.PHONY: log-app
-log-app: _check_app_path
-	tail -f "$${INDICO_APP_PATH}/data/log/indico.log"
-
-.PHONY: log-db
-log-db:
-	uv run python indico/bin/utils/db_log.py -S
 
 ## -- checks -------------------------------------------------------------------
 
@@ -156,24 +215,30 @@ test-js:
 docker:
 	bin/build.sh
 
-.PHONY: wheel
-wheel:
+.PHONY: wheels
+wheels: wheel-core wheel-distro
+
+.PHONY: wheel-distro
+wheel-distro:
 	uv run indico/bin/maintenance/build-wheel.py plugin --no-git ..
 
-## -- misc ---------------------------------------------------------------------
+.PHONY: wheel-core
+wheel-core:
+	uv run indico/bin/maintenance/build-wheel.py indico --no-git
 
-.PHONY: run
-run:
-	uv run indico run --quiet --enable-evalex
+.PHONY: wheel-plugin
+wheel-plugin: _check_plugin
+	uv run indico/bin/maintenance/build-wheel.py plugin --no-git ../plugins/$(plugin)
 
-.PHONY: config
-config:
-	$${EDITOR:-vi} indico/indico/indico.conf
+## -- debugging ----------------------------------------------------------------
 
+.PHONY: log-app
+log-app: _check_app_path
+	tail -f "$${INDICO_APP_PATH}/data/log/indico.log"
 
-.PHONY: tmux
-tmux:
-	tmuxp load -d "./tmuxp.yaml" && tmux -CC attach -t "indicorp"
+.PHONY: log-db
+log-db:
+	uv run python indico/bin/utils/db_log.py -S
 
 ## -- utils --------------------------------------------------------------------
 
