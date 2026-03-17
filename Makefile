@@ -188,6 +188,10 @@ lint: lint-py lint-js lint-headers
 lint-py:
 	uv run ruff check --output-format=concise .
 
+.PHONY: lint-py-ci
+lint-py-ci:
+	uv run ruff check --output-format=github .
+
 .PHONY: lint-js
 lint-js:
 	@echo "No JS linter defined yet"

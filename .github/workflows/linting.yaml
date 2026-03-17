@@ -1,0 +1,29 @@
+name: linting
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Install Python dependencies
+        run: make deps-py
+      - name: Run Python linters
+        run: |
+          make lint-py-ci
+      - name: Run header linters
+        run: |
+          echo "::add-matcher::.github/matchers/unbehead.json"
+          make lint-headers
+          echo "::remove-matcher owner=unbehead::"
