@@ -8,11 +8,33 @@ authors = [{ name = "Alejandro Avilés", email = "ome@unconventional.dev" }]
 requires-python = '>=3.12.2'
 dependencies = []
 
+[dependency-groups]
+dev = [
+  "indico[dev]",
+  "indico-plugin-vc-zoom"
+]
+
 [project.urls]
 Repository = "https://github.com/unconventionaldotdev/indicorp"
 
 [project.entry-points."indico.plugins"]
 indicorp = "indicorp.plugin:Distro"
+
+[tool.uv]
+# XXX: Make uv refresh metadata of editable packages
+reinstall-package = [
+    "indicorp",
+    "indico",
+    "indico-plugin-vc-zoom"
+]
+
+[tool.uv.sources]
+indico = { path = "indico", editable = true }
+indico-plugin-vc-zoom = { path = "plugins/indico-plugins/vc_zoom", editable = true }
+
+[build-system]
+requires = ['hatchling==1.29.0']
+build-backend = 'hatchling.build'
 
 [tool.hatch]
 version = { path = 'indicorp/__init__.py' }
@@ -32,24 +54,6 @@ artifacts = [
     'indicorp/static/dist/',
 ]
 
-[tool.uv]
-# XXX: Make uv refresh metadata of editable packages
-reinstall-package = [
-    "indicorp",
-    "indico",
-    "indico-plugin-vc-zoom"
-]
-
-[tool.uv.sources]
-indico = { path = "indico", editable = true }
-indico-plugin-vc-zoom = { path = "plugins/indico-plugins/vc_zoom", editable = true }
-
-[dependency-groups]
-dev = [
-  "indico[dev]",
-  "indico-plugin-vc-zoom"
-]
-
-[build-system]
-requires = ['hatchling==1.27.0']
-build-backend = 'hatchling.build'
+[tool.hatch.build.targets.sdist.hooks.custom]
+path = 'plugins/indico-plugins/hatch_build.py'
+dependencies = ['babel==2.18.0']
