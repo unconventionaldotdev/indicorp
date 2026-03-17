@@ -9,7 +9,7 @@ Read this README.md file to know more about:
 - [Setting the environment](#setting-the-environment)
 - [Running an Indico instance](#running-an-indico-instance)
 - [Updating the environment](#updating-the-environment)
-- [Building artifacts](#building-artifacts)
+- [Building and deploying artifacts](#building-and-deploying-artifacts)
 - [Troubleshooting](#troubleshooting)
 
 For information on contributing to this repository, see [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -22,20 +22,22 @@ This repository is optimized for the following use cases:
 - Set up and run a local Indico instance.
 - Make code contributions to Indico and plugin repositories.
 - Develop organization-specific customizations as a "distribution plugin".
+- Deploy the distribution to a production environment.
 
 This repository contains editable code of:
 - Indico as a Git submodule in [`indico/`](./indico/)
 - A few Indico plugins as Git submodules in [`plugins/`](./plugins/)
-- Customizations for this "distribution plugin" in [`src/indicorp/`](./src/indicorp/)
+- Customizations for this "distribution plugin" in [`indicorp/`](./indicorp/)
 
 This repository includes other development tools such as:
 - [`Makefile`](./Makefile) with scripts for common development tasks
-- Linter and testing settings in line with the Indico code style (*coming soon*)
-- CI workflows for testing and building the distribution (*coming soon*)
+- Linter and testing settings in line with the Indico code style
+- CI workflows for testing and building the distribution
 - Issue and pull request templates (*coming soon*)
 
-> [!IMPORTANT]
-> This repository is primarily intended for development purposes. For production environments, build the Indico distribution as a Python package and install it the same virtual environment as Indico.
+This repository also supports deploying the distribution to production environments. Depending on the deployment model, this can be done by:
+- Building and installing the distribution as a wheel in the same virtual environment as Indico (see [Wheels](#wheels)).
+- Building and deploying a container image that bundles Indico, all plugins and the distribution (see [Container image](#container-image)).
 
 ## Setting the environment
 
@@ -256,9 +258,9 @@ indico db upgrade
 indico db --all-plugins upgrade
 ```
 
-## Building artifacts
+## Building and deploying artifacts
 
-This repository produces two types of build artifacts: Python wheels and a container image.
+This repository produces two types of build artifacts: Python wheels and a container image. Unlike the development setup described above, these artifacts are self-contained. Static assets and translation catalogs are compiled as part of the build process and bundled into the artifacts, so no separate compilation steps are required when deploying them.
 
 ### Wheels
 
@@ -271,6 +273,12 @@ make wheels
 ```
 
 Wheels are written to the `dist/` directory. For granular builds you can use `make wheel-core`, `make wheel-distro`, or `make wheel-plugin plugin=<path>` for a specific plugin.
+
+> [!NOTE]
+> For production deployments, installing the distribution wheel directly into the same virtual environment as Indico is the recommended approach. After building with `make wheels`, install with:
+> ```shell
+> pip install dist/indicorp-*.whl
+> ```
 
 ### Container image
 
