@@ -1,0 +1,24 @@
+name: testing
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Install Python dependencies
+        run: make deps-py
+      - name: Run Python tests
+        run: |
+          make test-py

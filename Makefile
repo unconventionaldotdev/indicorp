@@ -207,7 +207,8 @@ test: test-py test-js
 
 .PHONY: test-py
 test-py:
-	uv run pytest
+	# Treat exit code 5 (no tests were collected) as success
+	uv run pytest || [ $$? -eq 5 ]
 
 .PHONY: test-js
 test-js:
