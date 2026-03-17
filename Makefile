@@ -43,8 +43,10 @@ help:
 	@echo "  make test-js             - Run JavaScript tests"
 	@echo ""
 	@echo "⟐ Builds:"
-	@echo "  make docker              - Build Docker image"
+	@echo "  make container           - Build container image"
 	@echo "  make wheels              - Build all wheels"
+	@echo "  make wheel-core          - Build core wheel"
+	@echo "  make wheel-distro        - Build distro wheel"
 	@echo "  make wheel-plugin        - Build plugin wheel (plugin=<path>)"
 	@echo ""
 	@echo "⟐ Debugging:"
@@ -216,9 +218,9 @@ test-js:
 
 # -- builds --------------------------------------------------------------------
 
-.PHONY: docker
-docker:
-	bin/build.sh
+.PHONY: container
+container:
+	bin/build-container.sh
 
 .PHONY: wheels
 wheels: wheel-core wheel-distro

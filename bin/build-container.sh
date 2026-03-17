@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-# Image tag (override: IMAGE_TAG=mytag ./bin/build.sh)
+# Image tag (override: IMAGE_TAG=mytag ./bin/build-container.sh)
 IMAGE_TAG="${IMAGE_TAG:-unconventionaldotdev/indicorp:latest}"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

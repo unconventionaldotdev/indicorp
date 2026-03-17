@@ -9,7 +9,7 @@ Read this README.md file to know more about:
 - [Setting the environment](#setting-the-environment)
 - [Running an Indico instance](#running-an-indico-instance)
 - [Updating the environment](#updating-the-environment)
-- [Building the distribution](#building-the-distribution)
+- [Building artifacts](#building-artifacts)
 - [Troubleshooting](#troubleshooting)
 
 For information on contributing to this repository, see [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -256,12 +256,36 @@ indico db upgrade
 indico db --all-plugins upgrade
 ```
 
-## Building the distribution
+## Building artifacts
 
-The main output of this repository is a Docker image. This image will contain not only the distribution plugin code but also Indico and all plugins code from the submodules, built as wheels and installed in the image. Additionally, configuration files are copied to the image to make it ready to run. Build the Docker image with:
+This repository produces two types of build artifacts: Python wheels and a container image.
+
+### Wheels
+
+Python wheels are the distributable packages for Indico core and the distribution plugin. They are used both as an intermediate build step when producing the container image and as standalone artifacts that can be installed directly.
+
+Build all wheels (core + distribution plugin) with:
 
 ```shell
-make docker
+make wheels
+```
+
+Wheels are written to the `dist/` directory. For granular builds you can use `make wheel-core`, `make wheel-distro`, or `make wheel-plugin plugin=<path>` for a specific plugin.
+
+### Container image
+
+The container image provides a self-contained deployment of the distribution. The image is built in two stages: a builder stage that compiles all wheels and static assets, and a runtime stage based on the official Indico image that installs the resulting wheels and copies the configuration files from `etc/`.
+
+Build the container image with:
+
+```shell
+make container
+```
+
+The default image tag is `unconventionaldotdev/indicorp:latest`. Override it with the `IMAGE_TAG` environment variable:
+
+```shell
+IMAGE_TAG=myrepo/myimage:tag make container
 ```
 
 ## Troubleshooting
