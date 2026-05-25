@@ -17,3 +17,8 @@ webpack-build-config.json
 
 # local settings
 .envrc.local
+
+# per-contributor AI assistant skill symlinks (installed via agents/indico/scripts/install-links.sh)
+/.claude/skills/
+/.codex/skills/
+/.cursor/skills/
