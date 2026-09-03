@@ -1672,7 +1672,7 @@ wheels = [
 
 [[package]]
 name = "indico-plugin-vc-zoom"
-version = "3.3.4"
+version = "3.3.6"
 source = { editable = "plugins/indico-plugins/vc_zoom" }
 dependencies = [
     { name = "indico" },
