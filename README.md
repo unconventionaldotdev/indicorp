@@ -25,8 +25,10 @@ This repository is optimized for the following use cases:
 - Deploy the distribution to a production environment.
 
 This repository contains editable code of:
-- Indico as a Git submodule in [`indico/`](./indico/)
-- A few Indico plugins as Git submodules in [`plugins/`](./plugins/)
+- [Indico core](https://github.com/indico/indico) as a Git submodule in [`indico/`](./indico/)
+- [Official Indico plugins](https://github.com/indico/indico-plugins) as a Git submodule in [`plugins/indico-plugins`](./plugins/indico-plugins/)
+- [Community Indico plugins](https://github.com/indico/indico-plugins-contrib) as a Git submodule in [`plugins/indico-plugins-contrib`](./plugins/indico-plugins-contrib/)
+- [Indico agent tooling](https://github.com/unconventionaldotdev/indico-agents) as Git submodule in [`agents/indico`](agents/indico/)
 - Customizations for this "distribution plugin" in [`indicorp/`](./indicorp/)
 
 This repository includes other development tools such as:
@@ -168,6 +170,19 @@ make assets-plugin plugin=<plugin-path>
 
 > [!NOTE]
 > The `make assets` command needs to be run every time you make changes to the sources of Indico, plugins or the distribution plugin. For convenience, you can run `make asset-*-watch` commands to automatically re-compile the static assets on changes.
+
+### Set up AI agents
+
+AI agents can help with common Indico development tasks such as locating code, writing tests, adding request handlers,
+preparing migrations and updating the Indico submodule. The agent architecture and framework live in the
+[`agents/indico`](agents/indico/) submodule and it includes [agent instructions](AGENTS.md) and
+Indico-specific skills.
+
+Install the agent skills with:
+
+```shell
+make agent-skills
+```
 
 ## Running an Indico instance
 
