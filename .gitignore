@@ -17,3 +17,7 @@ webpack-build-config.json
 
 # local settings
 .envrc.local
+
+# local agent settings
+.agents/
+.claude

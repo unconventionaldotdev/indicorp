@@ -7,3 +7,6 @@
 [submodule "plugins/indico-plugins-contrib"]
 	path = plugins/indico-plugins-contrib
 	url = git@github.com:indico/indico-plugins-contrib.git
+[submodule "agents/indico"]
+	path = agents/indico
+	url = https://github.com/unconventionaldotdev/indico-agents.git

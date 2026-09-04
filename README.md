@@ -25,8 +25,10 @@ This repository is optimized for the following use cases:
 - Deploy the distribution to a production environment.
 
 This repository contains editable code of:
-- Indico as a Git submodule in [`indico/`](./indico/)
-- A few Indico plugins as Git submodules in [`plugins/`](./plugins/)
+- [Indico core](https://github.com/indico/indico) as a Git submodule in [`indico/`](./indico/)
+- [Official Indico plugins](https://github.com/indico/indico-plugins) as a Git submodule in [`plugins/indico-plugins`](./plugins/indico-plugins/)
+- [Community Indico plugins](https://github.com/indico/indico-plugins-contrib) as a Git submodule in [`plugins/indico-plugins-contrib`](./plugins/indico-plugins-contrib/)
+- [Indico agent tooling](https://github.com/unconventionaldotdev/indico-agents) as Git submodule in [`agents/indico`](agents/indico/)
 - Customizations for this "distribution plugin" in [`indicorp/`](./indicorp/)
 
 This repository includes other development tools such as:
@@ -69,6 +71,18 @@ If you didn't clone the repository recursively, clone and initialize submodules 
 
 ```shell
 git submodule update --init --progress
+```
+
+### Using AI agents
+
+AI agents can help with common Indico development tasks such as locating code, writing tests, adding request handlers,
+preparing migrations and updating the Indico submodule. The repository provides [agent instructions](AGENTS.md) and
+Indico-specific skills for these tasks.
+
+Install the skills with:
+
+```shell
+make agent-skills
 ```
 
 ### Install Python and NodeJS versions

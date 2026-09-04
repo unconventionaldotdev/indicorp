@@ -11,7 +11,10 @@ help:
 	@echo "  make tmux                - Launch the tmux session"
 	@echo "  make config              - Edit indico.conf"
 	@echo ""
-	@echo "⟐ Environment:"
+	@echo "⟐ Agents:"
+	@echo "  make agent-skills        - Install Indico agent skills"
+	@echo ""
+	@echo "⟐ Dependencies:"
 	@echo "  make deps                - Install all dependencies (Python + JS)"
 	@echo "  make deps-core           - Install core-only dependencies"
 	@echo "  make deps-distro         - Install distribution-only dependencies"
@@ -69,7 +72,13 @@ tmux:
 config:
 	$${EDITOR:-vi} indico/indico/indico.conf
 
-# -- environment ---------------------------------------------------------------
+# -- agents --------------------------------------------------------------------
+
+.PHONY: agent-skills
+agent-skills:
+	bash agents/indico/scripts/install-links.sh --skills
+
+# -- dependencies --------------------------------------------------------------
 
 #  Full setup of development environment
 
